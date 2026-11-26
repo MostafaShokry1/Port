@@ -1,596 +1,137 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mostafa Ahmed Abdelaziz — Software Engineer</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mostafa Ahmed Abdelaziz · Full-stack developer</title>
+<meta name="description" content="Full-stack developer working with React, Next.js, Node.js and NestJS. Selected projects, stack and contact.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --blueprint-navy:#0b1e3d;
-    --blueprint-navy-deep:#071528;
-    --grid-line:#1b3a63;
-    --copper:#e8a24c;
-    --copper-dim:#8a6633;
-    --teal:#4fd1c5;
-    --paper:#edf2f7;
-    --paper-dim:#9fb1c9;
-    --card-bg:#0f2647;
-    --mono:'IBM Plex Mono', monospace;
-    --sans:'IBM Plex Sans', sans-serif;
-  }
-
-  *{margin:0;padding:0;box-sizing:border-box;}
-
-  html{scroll-behavior:smooth;}
-
-  body{
-    background:var(--blueprint-navy);
-    background-image:
-      linear-gradient(var(--grid-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-    background-size:32px 32px;
-    color:var(--paper);
-    font-family:var(--sans);
-    line-height:1.6;
-    overflow-x:hidden;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
-  }
-
-  a{color:var(--teal); text-decoration:none;}
-  a:hover{text-decoration:underline;}
-
-  ::selection{background:var(--copper); color:var(--blueprint-navy-deep);}
-
-  :focus-visible{
-    outline:2px solid var(--copper);
-    outline-offset:3px;
-  }
-
-  .wrap{
-    max-width:1080px;
-    margin:0 auto;
-    padding:0 28px;
-  }
-
-  /* ---------- NAV ---------- */
-  header{
-    position:sticky; top:0; z-index:50;
-    background:rgba(7,21,40,0.85);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--grid-line);
-  }
-  .nav-inner{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:16px 0;
-  }
-  .nav-mark{
-    font-family:var(--mono); font-size:13px; letter-spacing:0.08em;
-    color:var(--copper);
-    display:flex; align-items:center; gap:8px;
-  }
-  .nav-mark .dot{width:7px;height:7px;border-radius:50%;background:var(--teal); box-shadow:0 0 8px var(--teal); animation:pulse 2.4s ease-in-out infinite;}
-  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
-  nav ul{list-style:none; display:flex; gap:28px;}
-  nav a{
-    font-family:var(--mono); font-size:12.5px; color:var(--paper-dim);
-    text-transform:uppercase; letter-spacing:0.06em;
-  }
-  nav a:hover{color:var(--copper); text-decoration:none;}
-
-  /* ---------- HERO ---------- */
-  .hero{
-    padding:100px 0 80px;
-    position:relative;
-  }
-  .hero-grid{
-    display:grid;
-    grid-template-columns:1.1fr 0.9fr;
-    gap:40px;
-    align-items:center;
-  }
-  .eyebrow{
-    font-family:var(--mono); font-size:12.5px; color:var(--copper);
-    letter-spacing:0.12em; text-transform:uppercase;
-    display:flex; align-items:center; gap:10px; margin-bottom:18px;
-  }
-  .eyebrow::before{content:''; width:24px; height:1px; background:var(--copper);}
-
-  h1{
-    font-family:var(--mono);
-    font-size:clamp(34px, 5vw, 54px);
-    font-weight:700;
-    line-height:1.12;
-    color:var(--paper);
-    letter-spacing:-0.01em;
-  }
-  h1 .accent{color:var(--copper);}
-
-  .hero-role{
-    margin-top:16px;
-    font-size:18px;
-    color:var(--paper-dim);
-    max-width:46ch;
-  }
-  .hero-summary{
-    margin-top:20px;
-    font-size:15.5px;
-    color:var(--paper-dim);
-    max-width:54ch;
-  }
-
-  .hero-actions{
-    margin-top:34px;
-    display:flex; gap:14px; flex-wrap:wrap;
-  }
-  .btn{
-    font-family:var(--mono); font-size:13px;
-    padding:12px 22px;
-    border-radius:2px;
-    letter-spacing:0.04em;
-    transition:transform 0.15s ease, box-shadow 0.15s ease;
-    display:inline-flex; align-items:center; gap:8px;
-  }
-  .btn-primary{
-    background:var(--copper); color:var(--blueprint-navy-deep); font-weight:600;
-  }
-  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 6px 20px rgba(232,162,76,0.3); text-decoration:none;}
-  .btn-ghost{
-    border:1px solid var(--grid-line); color:var(--paper-dim);
-  }
-  .btn-ghost:hover{border-color:var(--teal); color:var(--teal); text-decoration:none; transform:translateY(-2px);}
-
-  .contact-line{
-    margin-top:28px; display:flex; flex-wrap:wrap; gap:16px 24px;
-    font-family:var(--mono); font-size:12.5px; color:var(--paper-dim);
-  }
-  .contact-line span{display:flex; align-items:center; gap:6px;}
-
-  /* Schematic diagram */
-  .schematic{
-    position:relative;
-  }
-  .schematic svg{width:100%; height:auto; display:block;}
-  .node-label{font-family:var(--mono); font-size:11px; fill:var(--paper-dim);}
-  .node-center-label{font-family:var(--mono); font-size:12px; font-weight:700; fill:var(--blueprint-navy-deep);}
-  .trace{stroke:var(--grid-line); stroke-width:1.5; fill:none;}
-  .trace-active{stroke:var(--copper); stroke-width:1.5; fill:none; stroke-dasharray:4 4; animation:dash 3s linear infinite;}
-  @keyframes dash{to{stroke-dashoffset:-16;}}
-  .node-ring{fill:var(--card-bg); stroke:var(--grid-line); stroke-width:1.5;}
-  .node-center{fill:var(--copper);}
-
-  /* ---------- SECTION HEADERS ---------- */
-  section{padding:70px 0;}
-  .section-head{
-    display:flex; align-items:baseline; gap:14px; margin-bottom:40px;
-  }
-  .section-tag{
-    font-family:var(--mono); font-size:12px; color:var(--copper-dim); letter-spacing:0.08em;
-  }
-  .section-title{
-    font-family:var(--mono); font-size:26px; font-weight:700; color:var(--paper);
-  }
-  .section-rule{flex:1; height:1px; background:var(--grid-line); margin-left:8px;}
-
-  /* ---------- ABOUT ---------- */
-  .about-body{color:var(--paper-dim); font-size:15.5px; max-width:76ch;}
-
-  /* ---------- SKILLS (component modules) ---------- */
-  .skills-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
-    gap:16px;
-  }
-  .module{
-    background:var(--card-bg);
-    border:1px solid var(--grid-line);
-    border-radius:3px;
-    padding:18px 20px;
-    position:relative;
-  }
-  .module::before{
-    content:'';
-    position:absolute; top:-1px; left:16px; width:26px; height:2px; background:var(--copper);
-  }
-  .module h3{
-    font-family:var(--mono); font-size:12px; color:var(--teal);
-    text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px;
-  }
-  .module p{color:var(--paper-dim); font-size:13.5px; line-height:1.7;}
-  .pin-row{display:flex; gap:6px; margin-bottom:10px;}
-  .pin{width:6px; height:6px; border-radius:50%; background:var(--grid-line);}
-
-  /* ---------- EXPERIENCE (signal trace timeline) ---------- */
-  .timeline{position:relative; padding-left:34px;}
-  .timeline::before{
-    content:''; position:absolute; left:6px; top:6px; bottom:6px; width:1px;
-    background:linear-gradient(var(--copper), var(--grid-line));
-  }
-  .tl-item{position:relative; margin-bottom:44px;}
-  .tl-item:last-child{margin-bottom:0;}
-  .tl-item::before{
-    content:''; position:absolute; left:-34px; top:4px; width:11px; height:11px; border-radius:50%;
-    background:var(--blueprint-navy); border:2px solid var(--copper);
-  }
-  .tl-date{font-family:var(--mono); font-size:12px; color:var(--copper); letter-spacing:0.05em;}
-  .tl-role{font-size:17px; font-weight:600; color:var(--paper); margin-top:4px;}
-  .tl-org{font-size:13.5px; color:var(--teal); margin-top:2px;}
-  .tl-list{margin-top:10px; color:var(--paper-dim); font-size:14px;}
-  .tl-list li{margin-bottom:6px; margin-left:18px;}
-
-  /* ---------- PROJECTS ---------- */
-  .projects-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
-    gap:18px;
-  }
-  .proj-card{
-    background:var(--card-bg);
-    border:1px solid var(--grid-line);
-    border-radius:3px;
-    padding:22px;
-    position:relative;
-    transition:border-color 0.2s ease, transform 0.2s ease;
-  }
-  .proj-card:hover{border-color:var(--copper); transform:translateY(-3px);}
-  .proj-card::after{
-    content:'';
-    position:absolute; bottom:12px; right:14px;
-    width:8px; height:8px; border-radius:50%;
-    background:var(--grid-line);
-  }
-  .proj-card:hover::after{background:var(--teal); box-shadow:0 0 6px var(--teal);}
-  .proj-title{font-family:var(--mono); font-size:15px; font-weight:600; color:var(--paper); margin-bottom:10px;}
-  .proj-desc{font-size:13.5px; color:var(--paper-dim); margin-bottom:14px;}
-  .tag-row{display:flex; flex-wrap:wrap; gap:6px;}
-  .tag{
-    font-family:var(--mono); font-size:10.5px; color:var(--copper);
-    border:1px solid var(--copper-dim); border-radius:2px;
-    padding:3px 7px;
-  }
-
-  .misc-projects{
-    margin-top:18px; padding:18px 20px;
-    border:1px dashed var(--grid-line); border-radius:3px;
-    color:var(--paper-dim); font-size:13.5px;
-  }
-  .misc-projects strong{color:var(--paper); font-weight:600;}
-
-  /* ---------- EDU / CERTS ---------- */
-  .two-col{
-    display:grid; grid-template-columns:1fr 1fr; gap:24px;
-  }
-  .info-card{
-    background:var(--card-bg); border:1px solid var(--grid-line); border-radius:3px; padding:24px;
-  }
-  .info-card h3{font-family:var(--mono); font-size:13px; color:var(--copper); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px;}
-  .edu-degree{font-size:15.5px; font-weight:600; color:var(--paper);}
-  .edu-school{font-size:13.5px; color:var(--teal); margin-top:4px;}
-  .edu-meta{font-family:var(--mono); font-size:12px; color:var(--paper-dim); margin-top:8px;}
-  .cert-list{list-style:none;}
-  .cert-list li{
-    font-size:13.5px; color:var(--paper-dim); padding:9px 0; border-bottom:1px solid var(--grid-line);
-    display:flex; align-items:center; gap:10px;
-  }
-  .cert-list li:last-child{border-bottom:none;}
-  .cert-list li::before{content:'▹'; color:var(--copper);}
-
-  .lang-row{display:flex; gap:24px; margin-top:16px;}
-  .lang-item{font-size:13.5px; color:var(--paper-dim);}
-  .lang-item b{color:var(--paper); font-family:var(--mono); font-size:12px; display:block; letter-spacing:0.04em;}
-
-  /* ---------- CONTACT / FOOTER ---------- */
-  footer{
-    border-top:1px solid var(--grid-line);
-    padding:60px 0 40px;
-    text-align:center;
-  }
-  .footer-title{font-family:var(--mono); font-size:24px; color:var(--paper); margin-bottom:14px;}
-  .footer-sub{color:var(--paper-dim); font-size:14.5px; max-width:50ch; margin:0 auto 30px;}
-  .footer-links{display:flex; justify-content:center; gap:22px; flex-wrap:wrap; font-family:var(--mono); font-size:13px;}
-  .footer-links a{color:var(--teal);}
-  .footer-note{margin-top:40px; font-family:var(--mono); font-size:11px; color:var(--grid-line);}
-
-  @media (max-width: 860px){
-    .hero-grid{grid-template-columns:1fr;}
-    .schematic{order:-1; opacity:0.8; max-width:340px; margin:0 auto 20px;}
-    .two-col{grid-template-columns:1fr;}
-    nav ul{gap:16px;}
-    .nav-inner{flex-direction:column; gap:12px; align-items:flex-start;}
-  }
-  @media (max-width: 560px){
-    nav ul{display:none;}
-  }
-</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="bar" id="bar"></div>
+<div class="wrap">
 
-<header>
-  <div class="wrap nav-inner">
-    <div class="nav-mark"><span class="dot"></span> Mostafa Ahmed // ONLINE</div>
+<aside class="side">
+  <div class="side-in">
+    <p class="name">Mostafa<br>Ahmed Abdelaziz</p>
+    <p class="role">Full-stack developer</p>
     <nav>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Stack</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#contact">Contact</a>
     </nav>
+    <ul class="links">
+      <li><a href="https://github.com/MostafaShokry1">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/mostafa-ahmed-9898b6256/">LinkedIn</a></li>
+    </ul>
   </div>
-</header>
+</aside>
 
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow">Software Engineer/Full-stack developer / Cairo, Egypt</div>
-      <h1>Mostafa Ahmed<br><span class="accent">Abdelaziz</span></h1>
-      <p class="hero-role">Full-stack developer building on the MERN stack — from device sensors to the browser.</p>
-      <p class="hero-summary">I design, build, and deploy scalable web and IoT-based applications — comfortable across the stack, from responsive front ends to RESTful APIs and the databases underneath. Grounded in OOP, data structures, and distributed-systems fundamentals, with a working knowledge of the networks that connect it all.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="mailto:mostafaahmed3281@gmail.com">Get in touch</a>
-        <a class="btn btn-ghost" href="#projects">View projects</a>
-      </div>
-      <div class="contact-line">
-        <span>📍 Cairo, Egypt</span>
-        <span>📞 +20 122 725 7923</span>
-        <span>✉ mostafaahmed3281@gmail.com</span>
-        <span>  <a href="https://github.com/MostafaShokry1" target="_blank" rel="noopener noreferrer">GitHub</a></span>
-        <span>  <a href="https://www.linkedin.com/in/mostafa-ahmed-9898b6256/" target="_blank" rel="noopener noreferrer">LinkedIn</a></span>
-      </div>
+<main>
+  <section class="intro">
+    <h1>I build the parts of web apps you don't see, and the screens on top of them.</h1>
+    <p>I'm a full-stack developer in Egypt. Most of my work is Node.js, Express and MongoDB behind a React front end, with NestJS and TypeScript when a project needs more structure. Auth, payments, real-time messaging and a device that sends GPS data over a serial port: I've built each of them.</p>
+    <p class="status"><span class="dot"></span>Open to full-time roles and freelance projects</p>
+  </section>
+
+  <section id="work">
+    <h2>Selected work</h2>
+    <ol class="projects">
+
+      <li>
+        <div class="p-head"><span class="n">01</span><h3>Smart Tracking System for Kids</h3></div>
+        <p class="tags">IoT · Node.js · Express · MongoDB</p>
+        <p>A real-time GPS tracking backend. It reads a GPS module through <code>serialport</code>, pushes location updates to the client with Pusher, authenticates with JWT, runs scheduled jobs with node-cron, and sends email and PDF notifications through Nodemailer and PDFKit.</p>
+        <p class="p-links"><a href="https://github.com/MostafaShokry1/smart">Source on GitHub →</a></p>
+      </li>
+
+      <li>
+        <div class="p-head"><span class="n">02</span><h3>E-commerce backend</h3></div>
+        <p class="tags">Node.js · Express · MongoDB · Stripe</p>
+        <p>A REST API for an online store: JWT login with bcrypt, Joi validation, Stripe payments, image uploads with Multer and Cloudinary, automatic PDF invoices and transactional email.</p>
+        <p class="p-links"><a href="https://github.com/MostafaShokry1/ecom">Source on GitHub →</a></p>
+      </li>
+
+      <li>
+        <div class="p-head"><span class="n">03</span><h3>E-commerce web app</h3></div>
+        <p class="tags">React · Axios · Formik · Yup</p>
+        <p>The storefront side. Over thirty reusable components cover product browsing, category and brand filters and a cart built on Context. It talks to a REST API for login, checkout and orders, with form validation and protected routes for signed-in pages.</p>
+        <p class="p-links"><a href="https://mostafashokry1.github.io/Shokry/">Live demo →</a><a href="https://github.com/MostafaShokry1/Shokry">Source on GitHub →</a></p>
+      </li>
+
+      <li>
+        <div class="p-head"><span class="n">04</span><h3>Modular REST API</h3></div>
+        <p class="tags">NestJS · TypeScript · MongoDB</p>
+        <p>A CRUD API structured the NestJS way: controllers, services and modules wired by dependency injection, Mongoose schemas, and DTOs checked with class-validator so bad input is rejected at the edge.</p>
+        <p class="p-links"><a href="https://github.com/MostafaShokry1/Nest_Crud">Source on GitHub →</a></p>
+      </li>
+
+      <li>
+        <div class="p-head"><span class="n">05</span><h3>Real-time chat</h3></div>
+        <p class="tags">Socket.io · Express · MongoDB · JWT</p>
+        <p>One-to-one messaging where every socket event is checked against the user's JWT. Conversations are stored in MongoDB, and a socket-to-user map delivers messages live to whoever is online.</p>
+        <p class="p-links"><a href="https://github.com/MostafaShokry1/Socket.io_-ChatApp">Source on GitHub →</a></p>
+      </li>
+
+      <li>
+        <div class="p-head"><span class="n">06</span><h3>Bank management system</h3></div>
+        <p class="tags">C++ · OOP · File handling</p>
+        <p>A console banking program with a class hierarchy: a base <code>Person</code> extended by Client, Employee and Admin. Accounts and transactions are saved to text files through a small persistence layer. Supports deposits, withdrawals and transfers.</p>
+        <p class="p-links"><a href="https://github.com/MostafaShokry1/Bank_System_123">Source on GitHub →</a></p>
+      </li>
+    </ol>
+
+    <p class="more">Smaller front-end exercises: a <a href="https://mostafashokry1.github.io/weather/">weather app</a> using WeatherAPI.com and a <a href="https://mostafashokry1.github.io/Akira/">recipe finder</a> using TheMealDB. I also designed and simulated an office network in Cisco Packet Tracer.</p>
+  </section>
+
+  <section id="about">
+    <h2>About</h2>
+    <div class="cols">
+      <p>Since 2025 I've been freelancing, building full-stack applications for independent clients in retail, logistics and services. I handle requirements, development, testing, deployment and the conversations with the client, so I've learned to keep code simple enough that I can still read it a month later.</p>
+      <p>I studied Information Technology at the Faculty of Computers and Informatics, Zagazig University (2020 to 2024, grade Excellent), then took the MERN stack program at Route Academy. I also hold the CCNA, which is why I tend to think about what happens to a request between the browser and the database.</p>
     </div>
+    <p class="langs">Languages: Arabic (native), English (professional working).</p>
+  </section>
 
-<div class="schematic" aria-hidden="true">
-  <svg viewBox="0 0 360 360">
+  <section id="stack">
+    <h2>Stack</h2>
+    <dl class="stack">
+      <div><dt>Front end</dt><dd>React, Next.js, HTML, CSS, Sass, Tailwind, Bootstrap</dd></div>
+      <div><dt>Back end</dt><dd>Node.js, Express, NestJS, REST, JWT, Socket.io</dd></div>
+      <div><dt>Data</dt><dd>MongoDB, PostgreSQL, Redis</dd></div>
+      <div><dt>Languages</dt><dd>JavaScript, TypeScript, C++, Python</dd></div>
+      <div><dt>Tooling</dt><dd>Git, Docker, GitHub Actions, Azure, Jest, Postman</dd></div>
+      <div><dt>AI APIs</dt><dd>Claude, ChatGPT, Gemini: LLM API integration</dd></div>
+    </dl>
+  </section>
 
-    <!-- traces -->
-    <path class="trace" d="M180,180 L180,40"/>
-    <path class="trace-active" d="M180,180 L280,80"/>
-    <path class="trace" d="M180,180 L320,180"/>
-    <path class="trace-active" d="M180,180 L280,280"/>
-    <path class="trace" d="M180,180 L180,320"/>
-    <path class="trace-active" d="M180,180 L80,280"/>
-    <path class="trace" d="M180,180 L40,180"/>
-    <path class="trace-active" d="M180,180 L80,80"/>
+  <section id="contact">
+    <h2>Contact</h2>
+    <p class="big">Have a project or a role in mind? <a href="mailto:mostafaahmed3281@gmail.com">mostafaahmed3281@gmail.com</a></p>
+    <p>Phone / WhatsApp: <a href="tel:+201227257923">+20 122 725 7923</a></p>
+  </section>
 
-    <!-- REACT -->
-    <circle class="node-ring" cx="180" cy="40" r="28"/>
-    <text x="180" y="45" text-anchor="middle" class="node-label">REACT</text>
-
-    <!-- NEXT -->
-    <circle class="node-ring" cx="280" cy="80" r="28"/>
-    <text x="280" y="85" text-anchor="middle" class="node-label">NEXT</text>
-
-    <!-- NODE -->
-    <circle class="node-ring" cx="320" cy="180" r="28"/>
-    <text x="320" y="185" text-anchor="middle" class="node-label">NODE</text>
-
-    <!-- NEST -->
-    <circle class="node-ring" cx="280" cy="280" r="28"/>
-    <text x="280" y="285" text-anchor="middle" class="node-label">NEST</text>
-
-    <!-- REST API -->
-    <circle class="node-ring" cx="180" cy="320" r="28"/>
-    <text x="180" y="325" text-anchor="middle" class="node-label">REST</text>
-
-    <!-- MONGODB -->
-    <circle class="node-ring" cx="80" cy="280" r="28"/>
-    <text x="80" y="285" text-anchor="middle" class="node-label">MONGO</text>
-
-    <!-- IOT -->
-    <circle class="node-ring" cx="40" cy="180" r="28"/>
-    <text x="40" y="185" text-anchor="middle" class="node-label">IOT</text>
-
-    <!-- NETWORK -->
-    <circle class="node-ring" cx="80" cy="80" r="28"/>
-    <text x="80" y="85" text-anchor="middle" class="node-label">NETWORK</text>
-
-    <!-- center -->
-    <circle class="node-center" cx="180" cy="180" r="38"/>
-    <text x="180" y="176" text-anchor="middle" class="node-center-label">FULL</text>
-    <text x="180" y="192" text-anchor="middle" class="node-center-label">STACK</text>
-
-  </svg>
+  <footer>© <span id="y">2026</span> Mostafa Ahmed Abdelaziz</footer>
+</main>
 </div>
-</section>
-
-<section id="about">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-tag">01</span>
-      <span class="section-title">About</span>
-      <span class="section-rule"></span>
-    </div>
-    <p class="about-body">
-      Results-driven software engineer with hands-on experience designing, building, and deploying scalable web and IoT-based applications using the MERN stack. Strong foundation in object-oriented programming, data structures, algorithms, and software engineering principles, with practical exposure to distributed systems and microservices concepts. Comfortable across the stack — from responsive front-end interfaces to RESTful APIs and database-driven back-end systems — with a track record of debugging, testing, and optimizing applications for performance and reliability. Adaptable and self-motivated, with strong problem-solving, communication, and teamwork skills.
-    </p>
-  </div>
-</section>
-
-<section id="skills">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-tag">02</span>
-      <span class="section-title">Stack</span>
-      <span class="section-rule"></span>
-    </div>
-    <div class="skills-grid">
-      <div class="module">
-        <div class="pin-row"><span class="pin"></span><span class="pin"></span><span class="pin"></span></div>
-        <h3>Languages</h3>
-        <p>C++, Java, JavaScript, TypeScript, Python, Dart, Kotlin, C#</p>
-      </div>
-      <div class="module">
-        <div class="pin-row"><span class="pin"></span><span class="pin"></span><span class="pin"></span></div>
-        <h3>Front-End</h3>
-        <p>React.js, Next.js, HTML5, CSS3, SASS, Bootstrap 5, jQuery, AJAX, ES6, Figma</p>
-      </div>
-      <div class="module">
-        <div class="pin-row"><span class="pin"></span><span class="pin"></span><span class="pin"></span></div>
-        <h3>Back-End</h3>
-        <p>Node.js, Express.js, Nest.js, RESTful API Design</p>
-      </div>
-      <div class="module">
-        <div class="pin-row"><span class="pin"></span><span class="pin"></span><span class="pin"></span></div>
-        <h3>Databases</h3>
-        <p>MongoDB, PostgreSQL, ORMs, SQL, NoSQL</p>
-      </div>
-      <div class="module">
-        <div class="pin-row"><span class="pin"></span><span class="pin"></span><span class="pin"></span></div>
-        <h3>Core CS</h3>
-        <p>OOP, Data Structures &amp; Algorithms, Machine Learning, Computer Vision, Deep Learning</p>
-      </div>
-      <div class="module">
-        <div class="pin-row"><span class="pin"></span><span class="pin"></span><span class="pin"></span></div>
-        <h3>Networking</h3>
-        <p>CCNA, Cisco Packet Tracer, Cloud Computing Fundamentals</p>
-      </div>
-      <div class="module">
-        <div class="pin-row"><span class="pin"></span><span class="pin"></span><span class="pin"></span></div>
-        <h3>Tools &amp; DevOps</h3>
-        <p>Git &amp; GitHub, Postman, Package Managers, Cloud Deployment, Docker</p>
-      </div>
-      <div class="module">
-        <div class="pin-row"><span class="pin"></span><span class="pin"></span><span class="pin"></span></div>
-        <h3>Professional</h3>
-        <p>Problem-Solving, Technical Writing, Time Management, Teamwork &amp; Collaboration</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="experience">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-tag">03</span>
-      <span class="section-title">Experience</span>
-      <span class="section-rule"></span>
-    </div>
-    <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-date">2025 — Present</div>
-        <div class="tl-role">Full-Stack Developer (Node.js)</div>
-        <div class="tl-org">Freelance / Self-Employed — Cairo, Egypt</div>
-        <ul class="tl-list">
-          <li>Design and build custom web applications for clients end-to-end, covering front-end (React.js) and back-end (Node.js, Express.js, MongoDB) development.</li>
-          <li>Develop and integrate RESTful APIs, handling authentication, data validation, and CRUD operations for client projects.</li>
-          <li>Manage the full project lifecycle independently: requirements gathering, development, testing, deployment, and client communication.</li>
-        </ul>
-      </div>
-      <div class="tl-item">
-        <div class="tl-date">2023 — 2024</div>
-        <div class="tl-role">Full-Stack Developer</div>
-        <div class="tl-org">Route Academy — Nasr City, Egypt</div>
-        <ul class="tl-list">
-          <li>Built full-stack web applications using the MERN stack as part of an intensive, project-based development program.</li>
-          <li>Collaborated with peers on real-world style projects, applying Git-based version control and code review practices.</li>
-          <li>Practiced writing clean, maintainable, and reusable front-end components and back-end services following industry best practices.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="projects">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-tag">04</span>
-      <span class="section-title">Projects</span>
-      <span class="section-rule"></span>
-    </div>
-    <div class="projects-grid">
-      <div class="proj-card">
-        <div class="proj-title">Smart Tracking System for Kids (IoT)</div>
-        <div class="proj-desc">Led development of an IoT-based kid-tracking system; built the back end with Node.js and MongoDB, integrated a Flutter front end, and optimized real-time data flow between devices and server.</div>
-        <div class="tag-row"><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Flutter</span><span class="tag">IoT</span></div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-title">E-Commerce Backend</div>
-        <div class="proj-desc">Built a scalable backend service designed to handle 500+ transactions per second, with real-time data processing and reliable order handling.</div>
-        <div class="tag-row"><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span></div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-title">RESTful CRUD API — NestJS</div>
-        <div class="proj-desc">Built a modular CRUD API following controllers/services/modules architecture, with input validation and structured error handling.</div>
-        <div class="tag-row"><span class="tag">NestJS</span><span class="tag">TypeScript</span><span class="tag">MongoDB</span></div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-title">Real-Time Chat Application</div>
-        <div class="proj-desc">Built a real-time chat app implementing WebSocket-based messaging, multiple chat rooms, and live user presence tracking.</div>
-        <div class="tag-row"><span class="tag">Socket.io</span><span class="tag">Express</span><span class="tag">JWT</span></div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-title">E-Commerce Web Application</div>
-        <div class="proj-desc">Developed a responsive e-commerce platform from scratch with a clean, reusable component architecture — product listings, cart management, and order processing with client- and server-side validation.</div>
-        <div class="tag-row"><span class="tag">React.js</span><span class="tag">REST API</span></div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-title">Bank Management System</div>
-        <div class="proj-desc">Developed a console-based banking system applying object-oriented design principles and file-based data persistence.</div>
-        <div class="tag-row"><span class="tag">C++</span><span class="tag">OOP</span><span class="tag">File I/O</span></div>
-      </div>
-      <div class="proj-card">
-        <div class="proj-title">Enterprise Office Network Design</div>
-        <div class="proj-desc">Designed and simulated an enterprise-scale office network topology, configuring routing, switching, and security fundamentals.</div>
-        <div class="tag-row"><span class="tag">Cisco Packet Tracer</span><span class="tag">Networking</span></div>
-      </div>
-    </div>
-
-    <div class="misc-projects">
-      <strong>Additional front-end projects:</strong> Weather App (JavaScript, CSS, HTML) · Bookmark Manager with Local Storage (JavaScript, CSS, HTML) · Recipe / Food Listing Page (jQuery, CSS, HTML) · Single-page responsive layout (CSS, HTML).
-    </div>
-  </div>
-</section>
-
-<section id="education">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-tag">05</span>
-      <span class="section-title">Education &amp; Certifications</span>
-      <span class="section-rule"></span>
-    </div>
-    <div class="two-col">
-      <div class="info-card">
-        <h3>Education</h3>
-        <div class="edu-degree">B.Sc. in Information Technology</div>
-        <div class="edu-school">Faculty of Computers and Informatics, Zagazig University — Zagazig, Egypt</div>
-        <div class="edu-meta">Sep 2020 – Jul 2024 &nbsp;•&nbsp; Grade: Excellent</div>
-
-        <div class="lang-row">
-          <div class="lang-item"><b>Arabic</b>Native</div>
-          <div class="lang-item"><b>English</b>Professional Working Proficiency</div>
-        </div>
-      </div>
-      <div class="info-card">
-        <h3>Certifications &amp; Courses</h3>
-        <ul class="cert-list">
-          <li>Cisco Certified Network Associate (CCNA) — Networking</li>
-          <li>Full-Stack Web Development (React.js &amp; Node.js) — Route Academy</li>
-          <li>Programming Fundamentals Certificate</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer id="contact">
-  <div class="wrap">
-    <div class="footer-title">Let's build something.</div>
-    <p class="footer-sub">Open to full-stack and back-end roles, freelance projects, and collaborations across the MERN stack and beyond.</p>
-    <div class="footer-links">
-      <a href="mailto:mostafaahmed3281@gmail.com">mostafaahmed3281@gmail.com</a>
-      <a href="tel:+201227257923">+20 122 725 7923</a>
-      <a href="https://github.com/MostafaShokry1">GitHub</a>
-      <a href="https://www.linkedin.com/in/mostafa-ahmed-9898b6256/">LinkedIn</a>
-    </div>
-    <div class="footer-note">// CAIRO, EGYPT — SYSTEM STATUS: AVAILABLE</div>
-  </div>
-</footer>
-
+<script>
+(function(){
+var y=document.getElementById('y');y.textContent=new Date().getFullYear();
+if(location.search.indexOf('still')>-1)return;
+document.documentElement.classList.add('js');
+var items=document.querySelectorAll('.projects li,h2,.more,.cols p,.langs,.stack div,#contact p');
+items.forEach(function(e,i){e.classList.add('rv')});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+items.forEach(function(e){io.observe(e)});
+var bar=document.getElementById('bar'),links=[].slice.call(document.querySelectorAll('nav a')),secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+function onScroll(){var h=document.documentElement;bar.style.transform='scaleX('+(h.scrollTop/(h.scrollHeight-h.clientHeight||1))+')';
+var cur=-1;secs.forEach(function(s,i){if(s.getBoundingClientRect().top<innerHeight*.4)cur=i});links.forEach(function(a,i){a.classList.toggle('on',i===cur)})}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
 </body>
 </html>
